@@ -1,0 +1,1563 @@
+/* === Thiết lập cơ bản === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Đảm bảo padding và border không làm tăng kích thước phần tử */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font chữ mặc định */
+    line-height: 1.6; /* Độ cao dòng chữ */
+    color: #333; /* Màu chữ mặc định */
+    overflow-x: hidden; /* Ngăn thanh cuộn ngang */
+    background: #fff; /* Màu nền trang */
+}
+
+/* Container giới hạn nội dung trong phạm vi tối đa 1400px */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* === Màn hình loading === */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); /* Gradient nền */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Đảm bảo hiển thị trên cùng */
+    transition: opacity 0.8s ease-out; /* Hiệu ứng mờ dần khi ẩn */
+}
+
+.loading-screen.hidden {
+    opacity: 0; /* Ẩn màn hình loading */
+    pointer-events: none; /* Vô hiệu hóa tương tác */
+}
+
+/* Hiệu ứng xoay cho loader */
+.loader {
+    width: 100px;
+    height: 100px;
+    border: 3px solid rgba(255, 215, 0, 0.2);
+    border-top: 3px solid #FFD700; /* Màu vàng nổi bật */
+    border-radius: 50%;
+    animation: spin 1.2s linear infinite; /* Hiệu ứng quay liên tục */
+    margin-bottom: 30px;
+}
+
+/* Văn bản loading */
+.loading-text {
+    color: #FFD700;
+    font-size: 1.8rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    animation: pulse 2s ease-in-out infinite; /* Hiệu ứng nhấp nháy */
+}
+
+/* Keyframes cho hiệu ứng quay */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Keyframes cho hiệu ứng nhấp nháy */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+/* === Header === */
+header {
+    background: rgba(26, 26, 46, 0.95); /* Màu nền mờ */
+    backdrop-filter: blur(20px); /* Hiệu ứng mờ nền */
+    color: white;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000; /* Đảm bảo header ở trên các phần tử khác */
+    box-shadow: 0 4px 30px rgba(0,0,0,0.1); /* Đổ bóng nhẹ */
+    transition: all 0.3s ease; /* Hiệu ứng chuyển đổi mượt mà */
+    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+/* Header khi cuộn */
+header.scrolled {
+    background: rgba(26, 26, 46, 0.98);
+    padding: 0.7rem 0; /* Thu nhỏ padding khi cuộn */
+}
+
+/* Thanh điều hướng */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo với hiệu ứng gradient và phát sáng */
+.logo {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #FFD700, #FFA500); /* Gradient vàng-cam */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: logoGlow 3s ease-in-out infinite; /* Hiệu ứng phát sáng */
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: #FFD700;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+@keyframes logoGlow {
+    0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3)); }
+    50% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6)); }
+}
+
+/* Danh sách liên kết điều hướng */
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 3rem; /* Khoảng cách giữa các liên kết */
+}
+
+.nav-links a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+    position: relative;
+    padding: 8px 0;
+    font-size: 1.1rem;
+}
+
+/* Hiệu ứng gạch chân khi hover hoặc active */
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::before,
+.nav-links a.active::before {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: #FFD700;
+    transform: translateY(-2px); /* Hiệu ứng nâng lên khi hover */
+}
+
+/* === Menu di động === */
+.mobile-menu-btn {
+    display: none; /* Ẩn trên màn hình lớn */
+    flex-direction: column;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.mobile-menu-btn:hover {
+    background: rgba(255, 215, 0, 0.1);
+}
+
+/* Các thanh của nút menu hamburger */
+.mobile-menu-btn span {
+    width: 28px;
+    height: 3px;
+    background: white;
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+/* Hiệu ứng chuyển đổi thành dấu X khi menu mở */
+.mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-6px, 6px);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-6px, -6px);
+}
+
+/* Menu di động */
+.mobile-menu {
+    position: fixed;
+    top: 80px;
+    left: -100%; /* Ẩn ngoài màn hình */
+    width: 100%;
+    height: calc(100vh - 80px);
+    background: rgba(26, 26, 46, 0.98);
+    backdrop-filter: blur(20px);
+    transition: left 0.4s ease;
+    z-index: 999;
+}
+
+.mobile-menu.active {
+    left: 0; /* Hiển thị menu khi active */
+}
+
+.mobile-menu ul {
+    list-style: none;
+    padding: 3rem 2rem;
+}
+
+.mobile-menu ul li {
+    margin: 2rem 0;
+}
+
+.mobile-menu ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: 500;
+    display: block;
+    padding: 1.5rem;
+    border-radius: 12px;
+    transition: all 0.3s;
+    border: 1px solid transparent;
+}
+
+.mobile-menu ul li a:hover {
+    background: rgba(255, 215, 0, 0.1);
+    border-color: rgba(255, 215, 0, 0.3);
+    transform: translateX(10px); /* Hiệu ứng trượt khi hover */
+}
+
+/* === Phần Hero (Banner chính) === */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    height: 100vh; /* Chiều cao toàn màn hình */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Video che phủ toàn bộ khu vực */
+    z-index: 1;
+}
+
+/* Nội dung Hero */
+.hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 900px;
+}
+
+.hero-content h1 {
+    font-size: 4.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: slideInFromTop 1.2s ease-out; /* Hiệu ứng trượt từ trên xuống */
+    line-height: 1.2;
+}
+
+.hero-content .subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+    animation: slideInFromBottom 1.2s ease-out 0.3s both;
+    line-height: 1.6;
+}
+
+.typing-text {
+    font-size: 1.2rem;
+    color: #FFD700;
+    margin-bottom: 3rem;
+    min-height: 40px;
+    font-weight: 400;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: slideInFromBottom 1.2s ease-out 0.6s both;
+}
+
+.cta-button {
+    display: inline-block;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: #1a1a2e;
+    padding: 18px 40px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+}
+
+.cta-button-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255, 215, 0, 0.5);
+    box-shadow: none;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s;
+}
+
+.cta-button:hover::before {
+    left: 100%; /* Hiệu ứng ánh sáng quét qua nút */
+}
+
+.cta-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4);
+}
+
+.cta-button-secondary:hover {
+    background: rgba(255, 215, 0, 0.1);
+    border-color: #FFD700;
+}
+
+/* === Keyframes cho hiệu ứng === */
+@keyframes slideInFromTop {
+    from { opacity: 0; transform: translateY(-80px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInFromBottom {
+    from { opacity: 0; transform: translateY(80px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInFromLeft {
+    from { opacity: 0; transform: translateX(-80px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInFromRight {
+    from { opacity: 0; transform: translateX(80px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* === Các section chung === */
+.section {
+    padding: 120px 0;
+    position: relative;
+}
+
+.section:nth-child(even) {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); /* Gradient cho section chẵn */
+}
+
+.section-title {
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #1a1a2e;
+    position: relative;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease;
+}
+
+.section-title.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 1.3rem;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    line-height: 1.8;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease 0.2s;
+}
+
+.section-subtitle.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    margin: 30px auto;
+    border-radius: 2px;
+    transform: scaleX(0);
+    transition: transform 0.8s ease 0.4s;
+}
+
+.section-title.animate::after {
+    transform: scaleX(1); /* Hiệu ứng mở rộng gạch chân */
+}
+
+/* === Lưới thẻ (Card Grid) === */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Lưới responsive */
+    gap: 3rem;
+    margin-top: 4rem;
+}
+
+.card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0;
+    transform: translateY(60px);
+    position: relative;
+    border: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.card.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,215,0,0.05), rgba(255,165,0,0.05));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.card:hover::before {
+    opacity: 1; /* Hiệu ứng gradient nhẹ khi hover */
+}
+
+.card:hover {
+    transform: translateY(-20px) scale(1.02);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+}
+
+.card-image {
+    height: 250px;
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: #FFD700;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-image::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,215,0,0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.8s ease;
+}
+
+.card:hover .card-image::before {
+    width: 400px;
+    height: 400px; /* Hiệu ứng lan tỏa vòng tròn */
+}
+
+.card-content {
+    padding: 2.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.card-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #1a1a2e;
+    transition: color 0.3s ease;
+}
+
+.card:hover .card-title {
+    color: #0f3460;
+}
+
+.card-description {
+    color: #666;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.card:hover .card-description {
+    color: #555;
+}
+
+/* === Phần Parallax === */
+.parallax-section {
+    background-attachment: fixed; /* Hiệu ứng parallax */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.parallax-content {
+    text-align: center;
+    color: white;
+    z-index: 2;
+    position: relative;
+}
+
+/* === Phần thống kê === */
+.stats-section {
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    color: white;
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/placeholder.svg?height=100&width=100') repeat;
+    opacity: 0.05;
+    animation: float 20s ease-in-out infinite; /* Hiệu ứng di chuyển nền */
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.stat-item {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease;
+    padding: 2rem;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.stat-item.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.stat-number {
+    font-size: 4rem;
+    font-weight: 800;
+    color: #FFD700;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.stat-label {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* === Footer === */
+footer {
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    color: white;
+    text-align: center;
+    padding: 5rem 0 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #FFD700, #FFA500, #FFD700);
+    animation: shimmer 3s ease-in-out infinite; /* Hiệu ứng ánh sáng chạy ngang */
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 2;
+}
+
+.footer-section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+    padding: 2rem;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.footer-section.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.footer-section h3 {
+    color: #FFD700;
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.footer-section p {
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+}
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+    padding-top: 2rem;
+    margin-top: 3rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+}
+
+/* === Nút Back to Top === */
+.back-to-top {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: #1a1a2e;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: bold;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    z-index: 1000;
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    transform: translateY(-8px) scale(1.1);
+    box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4);
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Ẩn menu chính trên thiết bị di động */
+    }
+
+    .mobile-menu-btn {
+        display: flex; /* Hiển thị nút menu hamburger */
+    }
+
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .hero-content .subtitle {
+        font-size: 1.2rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    .card-grid, .cuisine-grid {
+        grid-template-columns: 1fr; /* Một cột trên thiết bị nhỏ */
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cuisine-video {
+        height: 300px;
+        margin: 2rem auto;
+    }
+
+    .cuisine-features {
+        padding: 2rem 1rem;
+    }
+
+    .section {
+        padding: 80px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .section {
+        padding: 60px 0;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .back-to-top {
+        width: 50px;
+        height: 50px;
+        bottom: 30px;
+        right: 30px;
+    }
+}
+
+/* === Thanh cuộn tùy chỉnh === */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #1a1a2e, #FFD700);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+}
+
+/* === Slider Ẩm thực === */
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+}
+
+.slide {
+    position: relative;
+    height: 100%;
+}
+
+.slide .item {
+    width: 200px;
+    height: 300px;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    border-radius: 20px;
+    box-shadow: 0 30px 50px #505050;
+    display: inline-block;
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+.slide .item:nth-child(1),
+.slide .item:nth-child(2) {
+    top: 0;
+    left: 0;
+    transform: translate(0, 0);
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.slide .item:nth-child(3) {
+    left: 50%;
+}
+
+.slide .item:nth-child(4) {
+    left: calc(50% + 220px);
+}
+
+.slide .item:nth-child(n+5) {
+    left: calc(50% + 440px);
+    opacity: 0;
+}
+
+.item .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: filter 0.5s ease;
+    z-index: 0;
+}
+
+.item .content {
+    position: relative;
+    top: 50%;
+    left: 50px;
+    width: 40%;
+    transform: translateY(-50%);
+    color: white;
+    z-index: 1;
+    font-family: system-ui;
+    display: none;
+}
+
+.slide .item:nth-child(2) .content {
+    display: block; /* Hiển thị nội dung cho slide chính */
+}
+
+.content .name {
+    font-size: 36px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.content .des {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Hiệu ứng làm mờ ảnh nền */
+.bg.fade {
+    filter: brightness(70%);
+}
+
+/* Nút điều hướng slider */
+.button {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    z-index: 2;
+}
+
+.button button {
+    width: 40px;
+    height: 35px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+    border: 1px solid #000;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.button button:hover {
+    background: #d817b1;
+    color: #fff;
+}
+
+/* === Điều chỉnh lề cuộn cho section === */
+#crafts, #home {
+    scroll-margin-top: 100px; /* Đảm bảo nội dung không bị che bởi header cố định */
+}
+.crafts {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.crafts::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/placeholder.svg?height=100&width=100') repeat;
+    opacity: 0.03;
+    z-index: 1;
+}
+
+/* Section Header */
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 2;
+}
+
+.section-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease;
+}
+
+.section-title.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.title-decoration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 0;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.8s ease 0.2s;
+}
+
+.title-decoration.animate {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.decoration-line {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+}
+
+.decoration-diamond {
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    transform: rotate(45deg);
+    margin: 0 20px;
+}
+
+.section-subtitle {
+    font-size: 1.3rem;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease 0.4s;
+}
+
+.section-subtitle.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Filter Tabs */
+.filter-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+}
+
+.filter-btn {
+    padding: 12px 24px;
+    border: 2px solid transparent;
+    background: white;
+    color: #666;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,215,0,0.3), transparent);
+    transition: left 0.6s;
+}
+
+.filter-btn:hover::before {
+    left: 100%;
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border-color: rgba(255, 215, 0, 0.3);
+}
+
+.filter-btn.active {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: #1a1a2e;
+    border-color: #FFD700;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+}
+
+/* Crafts Grid */
+.crafts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.craft-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+    position: relative;
+    border: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.craft-card.animate {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.craft-card.hidden {
+    display: none;
+}
+
+.craft-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+}
+
+/* Card Image */
+.card-image-container {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.craft-card:hover .card-image {
+    transform: scale(1.1);
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(26,26,46,0.8), rgba(15,52,96,0.8));
+    opacity: 0;
+    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.craft-card:hover .image-overlay {
+    opacity: 1;
+}
+
+.overlay-content {
+    text-align: center;
+    color: white;
+    transform: translateY(20px);
+    transition: transform 0.4s ease 0.1s;
+}
+
+.craft-card:hover .overlay-content {
+    transform: translateY(0);
+}
+
+.craft-category {
+    display: block;
+    font-size: 0.9rem;
+    color: #FFD700;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.view-details-btn {
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: #1a1a2e;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.view-details-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+/* Card Content */
+.card-content {
+    padding: 2rem;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1a1a2e;
+    transition: color 0.3s ease;
+}
+
+.craft-card:hover .card-title {
+    color: #0f3460;
+}
+
+.card-description {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.card-stats {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #FFD700;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+}
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalSlideIn 0.4s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #FFD700;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-image {
+    height: 300px;
+    overflow: hidden;
+}
+
+.modal-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal-info {
+    padding: 2rem;
+}
+
+.modal-info h3 {
+    font-size: 2rem;
+    color: #1a1a2e;
+    margin-bottom: 1rem;
+}
+
+.modal-info p {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.modal-details {
+    display: grid;
+    gap: 1rem;
+}
+
+.detail-item {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #FFD700;
+}
+
+.detail-item strong {
+    color: #1a1a2e;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .section {
+        padding: 80px 0;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+    }
+    
+    .crafts-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .filter-tabs {
+        gap: 0.5rem;
+    }
+    
+    .filter-btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .modal-body {
+        flex-direction: column;
+    }
+    
+    .modal-content {
+        margin: 10% auto;
+        width: 95%;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .crafts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .card-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+/* art */
+.art-card-grid {
+    perspective: 3000px;
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.art-card {
+    width: 360px;
+    height: 530px;
+    transform-style: preserve-3d;
+    transition: transform .8s ease-in-out;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2),
+                -5px -5px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 15px;
+    position: relative;
+}
+
+.art-card:hover {
+    transform: rotateY(180deg);
+}
+
+.art-card-front,
+.art-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+}
+
+#first{
+    background-image: url(/festival_hue_2025/picture/nhanhac.jpg);
+    background-size: cover;
+    background-position: center;
+}
+#second{
+    background-image: url(/festival_hue_2025/picture/cahue.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.art-card-info {
+    position: absolute;
+    bottom: 50px;
+    left: 45px;
+    color: #fff;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.art-card-title {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.art-card-subtitle {
+    font-size: 1.2rem;
+    margin-top: 5px;
+    color: #0fbcf9;
+}
+
+.art-card-back {
+    background: linear-gradient(145deg, #1e272e, #2f3640);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotateY(180deg);
+    border-radius: 15px;
+    box-shadow: 
+        inset 0 0 20px rgba(255, 255, 255, 0.05),
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 215, 0, 0.1); /* Viền mỏng vàng */
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    
+    /* Hiệu ứng nổi bật */
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.1) 0%, transparent 40%),
+            radial-gradient(circle at 80% 70%, rgba(255, 215, 0, 0.1) 0%, transparent 40%);
+        z-index: 1;
+        opacity: 0.5;
+    }
+    
+    /* Hiệu ứng ánh sáng góc */
+    &::after {
+        content: '';
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
+        filter: blur(5px);
+        z-index: 1;
+    }
+}
+
+.art-card-content {
+    text-align: center;
+    padding: 20px;
+    max-width: 300px;
+    z-index: 2;
+    position: relative;
+    
+    /* Hiệu ứng chữ nổi */
+    &::before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        z-index: -1;
+        filter: blur(10px);
+    }
+    
+    /* Hiệu ứng chữ sáng */
+    p {
+        text-shadow: 
+            0 0 5px rgba(255, 215, 0, 0.5),
+            0 0 10px rgba(255, 215, 0, 0.3);
+        line-height: 1.6;
+        font-size: 1.1rem;
+    }
+}

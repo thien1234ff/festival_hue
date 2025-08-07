@@ -1,0 +1,18 @@
+# HTML, CSS, JS
+# Node modules (nếu dùng npm)
+node_modules/
+Danh mục
+# Build output
+dist/
+build/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE settings
+.vscode/
+.idea/
+
+# Env files
+.env
