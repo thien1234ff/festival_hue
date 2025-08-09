@@ -751,74 +751,278 @@ footer::before {
 /* === Responsive Design === */
 @media (max-width: 768px) {
     .nav-links {
-        display: none; /* Ẩn menu chính trên thiết bị di động */
+        display: none;
     }
 
     .mobile-menu-btn {
-        display: flex; /* Hiển thị nút menu hamburger */
+        display: flex;
     }
 
     .hero-content h1 {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
 
     .hero-content .subtitle {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .section-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 
-    .card-grid, .cuisine-grid {
-        grid-template-columns: 1fr; /* Một cột trên thiết bị nhỏ */
+    .section-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .card-grid, .crafts-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
     .container {
-        padding: 0 15px;
-    }
-
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .cta-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .cuisine-video {
-        height: 300px;
-        margin: 2rem auto;
-    }
-
-    .cuisine-features {
-        padding: 2rem 1rem;
-    }
-
-    .section {
-        padding: 80px 0;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-
-    .section {
-        padding: 60px 0;
+        padding: 0 10px;
     }
 
     .stats-grid {
         grid-template-columns: 1fr;
     }
 
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .slider-container {
+        height: 300px; /* Giảm chiều cao */
+    }
+
+    .slide .item {
+        width: 150px;
+        height: 220px;
+    }
+
+    .content .name {
+        font-size: 24px;
+    }
+
+    .content .des {
+        font-size: 12px;
+    }
+
+    .art-card {
+        width: 280px; /* Giảm kích thước */
+        height: 400px;
+    }
+
+    .art-card-title {
+        font-size: 1.5rem;
+    }
+
+    .art-card-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .art-card-content p {
+        font-size: 0.9rem;
+    }
+
+    .modal-content {
+        margin: 15% auto;
+        width: 90%;
+    }
+
+    .modal-image {
+        height: 200px;
+    }
+
+    .modal-info h3 {
+        font-size: 1.5rem;
+    }
+
+    .modal-info p {
+        font-size: 0.9rem;
+    }
+
+    #btnModeToggle {
+        left: 3vw;
+        bottom: 3vh;
+        width: 6vw;
+        height: 6vw;
+    }
+
+    .character {
+        width: 15vw;
+    }
+
+    .speech-bubble {
+        bottom: 14vh;
+        max-width: 25vw;
+        font-size: 1.8vw;
+    }
+
+    .speech-bubble::before {
+        width: 1.8vw;
+        height: 1.8vw;
+        bottom: -0.8vh;
+        left: 1vw;
+    }
+
+    .speech-bubble::after {
+        width: 1.5vw;
+        height: 1.5vw;
+        bottom: -1.5vh;
+        left: 3vw;
+    }
+
+    .cloud-extra {
+        width: 1.5vw;
+        height: 1.5vw;
+        bottom: -2vh;
+        left: 5vw;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .section {
+        padding: 50px 0;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .section-subtitle {
+        font-size: 0.8rem;
+    }
+
+    .card-grid, .crafts-grid {
+        gap: 1rem;
+    }
+
+    .card-image {
+        height: 180px;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+    }
+
+    .card-description {
+        font-size: 0.8rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+    }
+
+    .stat-label {
+        font-size: 1rem;
+    }
+
+    .slider-container {
+        height: 250px;
+    }
+
+    .slide .item {
+        width: 120px;
+        height: 180px;
+    }
+
+    .content .name {
+        font-size: 20px;
+    }
+
+    .content .des {
+        font-size: 10px;
+    }
+
+    .art-card {
+        width: 240px;
+        height: 360px;
+    }
+
+    .art-card-title {
+        font-size: 1.3rem;
+    }
+
+    .art-card-subtitle {
+        font-size: 0.8rem;
+    }
+
+    .art-card-content p {
+        font-size: 0.8rem;
+    }
+
     .back-to-top {
-        width: 50px;
-        height: 50px;
-        bottom: 30px;
-        right: 30px;
+        width: 40px;
+        height: 40px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 1rem;
+    }
+
+    .modal-content {
+        margin: 20% auto;
+        width: 95%;
+    }
+
+    .modal-image {
+        height: 150px;
+    }
+
+    .modal-info h3 {
+        font-size: 1.3rem;
+    }
+
+    .modal-info p {
+        font-size: 0.8rem;
+    }
+
+    #btnModeToggle {
+        left: 4vw;
+        bottom: 3vh;
+        width: 10vw;
+        height: 10vw;
+    }
+
+    .character {
+        width: 20vw;
+    }
+
+    .speech-bubble {
+        bottom: 12vh;
+        max-width: 35vw;
+        font-size: 2.5vw;
+    }
+
+    .speech-bubble::before {
+        width: 2.5vw;
+        height: 2.5vw;
+        bottom: -1vh;
+        left: 1.5vw;
+    }
+
+    .speech-bubble::after {
+        width: 2vw;
+        height: 2vw;
+        bottom: -1.8vh;
+        left: 4vw;
+    }
+
+    .cloud-extra {
+        width: 2vw;
+        height: 2vw;
+        bottom: -2.5vh;
+        left: 6.5vw;
     }
 }
 
@@ -1840,3 +2044,86 @@ footer::before {
         box-shadow: 0 0.2vh 0.6vh rgba(0, 0, 0, 0.1);
     }
 }  
+/* === Responsive Design === */
+@media (max-width: 1024px) {
+    .slider-container {
+        height: 350px;
+        padding-bottom: 30px;
+    }
+
+    .slide .item {
+        width: 180px;
+        height: 270px;
+        padding: 15px;
+    }
+
+    .content {
+        left: 20px;
+        width: 70%;
+        padding: 12px;
+    }
+
+    .content .name {
+        font-size: 26px;
+    }
+
+    .content .des {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .slider-container {
+        height: 300px;
+        padding-bottom: 25px;
+    }
+
+    .slide .item {
+        width: 150px;
+        height: 225px;
+        padding: 12px;
+    }
+
+    .content {
+        left: 15px;
+        width: 75%;
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .content .name {
+        font-size: 20px;
+    }
+
+    .content .des {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .slider-container {
+        height: 200px;
+        padding-bottom: 20px;
+    }
+
+    .slide .item {
+        width: 120px;
+        height: 180px;
+        padding: 10px;
+    }
+
+    .content {
+        left: 10px;
+        width: 80%;
+        padding: 8px;
+        font-size: 0.8rem;
+    }
+
+    .content .name {
+        font-size: 16px;
+    }
+
+    .content .des {
+        font-size: 8px;
+    }
+}
