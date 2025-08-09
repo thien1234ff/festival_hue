@@ -311,7 +311,7 @@
     const craftData = {
     'non-la': {
         title: 'Nón Lá Huế Phú Cam',
-        image: '/festival_hue_2025/picture/non-la.jpg',
+        image: '/picture/non-la.jpg',
         description: 'Nón lá Huế không chỉ là một sản phẩm thủ công mà còn là biểu tượng văn hóa đặc trưng của người dân xứ Huế. Được làm từ lá cọ non và khung tre, nón lá Huế có độ bền cao và thiết kế tinh xảo.',
         history: 'Hình thành từ thế kỷ 17 bởi cộng đồng giáo dân định cư tại vùng đất Phú Cam.',
         technique: 'Sử dụng lá cọ non, khung tre, kỹ thuật đan lát truyền thống',
@@ -319,7 +319,7 @@
     },
     'gom-phuoc-tich': {
         title: 'Làng Gốm Phước Tích',
-        image: '/festival_hue_2025/picture/gom.jpg',
+        image: '/picture/gom.jpg',
         description: 'Làng gốm Phước Tích nổi tiếng với những sản phẩm gốm có chất lượng cao, được nung ở nhiệt độ cao tạo nên độ bền và vẻ đẹp độc đáo. Sản phẩm gốm Phước Tích mang đậm hồn quê xứ Huế.',
         history: 'Hơn 500 năm lịch sử, Trải qua 500 năm lịch sử, Phước Tích đã trở thành một điểm nổi bật với nghề gốm, sau đó được vua Gia Long đặt tên và phát triển',
         technique: 'Kỹ thuật nung gốm truyền thống, sử dụng lò nung củi',
@@ -327,36 +327,13 @@
     },
     'theu-hue': {
         title: 'Thêu Huế',
-        image: '/festival_hue_2025/picture/theu.jpg',
+        image: '/picture/theu.jpg',
         description: 'Nghệ thuật thêu Huế là một trong những loại hình thủ công mỹ nghệ tinh xảo nhất của Việt Nam, với những họa tiết trang nhã, màu sắc hài hòa và kỹ thuật thêu độc đáo.',
         history: 'Hơn 300 năm lịch sử, phát triển trong cung đình nhà Nguyễn',
         technique: 'Thêu tay truyền thống, sử dụng chỉ lụa cao cấp',
         products: 'Áo dài, tranh thêu, túi xách, khăn trang trí'
     },
-    'moc-my-nghe': {
-        title: 'Mộc Mỹ Nghệ Huế',
-        image: '/placeholder.svg?height=400&width=600',
-        description: 'Nghề mộc mỹ nghệ Huế tạo ra những sản phẩm từ gỗ với kỹ thuật chạm khắc tinh xảo, từ đồ nội thất cung đình đến các vật dụng trang trí.',
-        history: 'Hơn 600 năm lịch sử, phát triển cùng với kiến trúc cung đình',
-        technique: 'Chạm khắc thủ công, sử dụng gỗ quý hiếm',
-        products: 'Bàn ghế, tủ kệ, tranh gỗ, tượng điêu khắc'
-    },
-    'duc-dong': {
-        title: 'Đúc Đồng Huế',
-        image: '/placeholder.svg?height=400&width=600',
-        description: 'Nghề đúc đồng Huế tạo ra những sản phẩm đồng thau chất lượng cao, từ chuông chùa, đỉnh hương đến các vật dụng trang trí cung đình.',
-        history: 'Hơn 800 năm lịch sử, phát triển từ thời Lý - Trần',
-        technique: 'Kỹ thuật đúc đồng truyền thống, sử dụng khuôn đất sét',
-        products: 'Chuông chùa, đỉnh hương, tượng đồng, đồ trang trí'
-    },
-    'giay-do': {
-        title: 'Giấy Dó Huế',
-        image: '/placeholder.svg?height=400&width=600',
-        description: 'Nghề làm giấy dó Huế sử dụng vỏ cây dó để tạo ra loại giấy có chất lượng cao, được sử dụng trong cung đình để viết sách, thư từ và trang trí.',
-        history: 'Hơn 700 năm lịch sử, được sử dụng rộng rãi trong cung đình',
-        technique: 'Sử dụng vỏ cây dó, kỹ thuật làm giấy thủ công truyền thống',
-        products: 'Giấy viết, giấy in sách, giấy trang trí, giấy dán tường'
-    }
+    
 };
 
 // DOM Elements
