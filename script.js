@@ -529,20 +529,6 @@ function initializeCounters() {
     }
 }
 
-// Smooth scrolling for internal links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
 // Enhanced hover effects
 craftCards.forEach(card => {
     card.addEventListener('mouseenter', function() {
@@ -563,4 +549,198 @@ window.addEventListener('scroll', function() {
         const speed = 0.5;
         element.style.transform = `translateY(${scrolled * speed}px)`;
     });
+});
+
+// Script for talkbot
+const sectionDialogues = [
+    ["Hành Trình Qua Cố Đô: Festival Huế 2025."],
+    [ 
+        "Dưới ánh hoàng hôn dịu dàng, dòng sông Hương lấp lánh như dải lụa, thì thầm kể những câu chuyện ngàn năm của cố đô Huế.",
+        "Bạn bước đi trên con đường nhỏ dẫn vào Festival Huế 2025, nơi mỗi góc phố, mỗi âm thanh, mỗi hương vị đều là một chương trong cuốn sách văn hóa rực rỡ."
+    ],
+    [
+        "Chương đầu tiên mở ra tại làng nón Phú Cam, nơi những nghệ nhân khéo léo dệt từng chiếc lá cọ thành những chiếc nón lá tinh xảo.",
+        "Dưới bàn tay họ, mỗi chiếc nón là một tác phẩm nghệ thuật, mang hồn Huế với những đường thêu mềm mại như thơ.",
+        "Bạn cầm trên tay chiếc nón, cảm nhận được hơi thở của hơn 400 năm truyền thống, như thể thời gian đang kể bạn nghe về sự kiên trì và tinh tế.",
+        "Bước tiếp theo, bạn lạc vào làng hoa giấy Thanh Tiên, nơi những bông hoa giấy rực rỡ sắc màu như nở ra từ tâm hồn của đất trời Huế.",
+        "Mỗi cánh hoa được cắt tỉa thủ công, kể câu chuyện về những lễ hội tưng bừng, những ngày cưới hỏi ngập tràn niềm vui.",
+        "Bạn mỉm cười, tưởng tượng mình đang đứng giữa một khu vườn hoa giấy lộng lẫy, nơi mọi khoảnh khắc đều trở nên bất tử."
+    ],
+    [
+        "Hành trình dẫn bạn đến một góc phố nhỏ, nơi mùi hương cay nồng của bún bò Huế quyện trong không khí.",
+        "Bạn ngồi xuống, thưởng thức tô bún với nước dùng đậm đà, thơm lừng từ xương heo, tôm khô và mắm ruốc. Mỗi muỗng nước là một câu chuyện về cung đình, nơi ẩm thực không chỉ là món ăn mà còn là nghệ thuật.",
+        "Rồi bạn nếm thử nem công chả phụng, món ăn tinh tế của hoàng gia, với hương vị thanh đạm như một lời thì thầm của sự sang trọng.",
+        "Không thể bỏ qua bánh ép làng Chuồn, giòn tan, đậm đà, như một khúc ca dân dã của làng quê Huế.",
+        "Và để kết thúc, một miếng mè xửng ngọt ngào tan trên đầu lưỡi, mang theo hương vị cổ điển, như một lời chào tạm biệt từ những ngày xưa cũ."
+    ],
+    [
+        "Cuối cùng, bạn dừng chân bên dòng sông Hương, nơi giai điệu nhã nhạc cung đình Huế vang lên, trầm bổng và trang nghiêm, như đưa bạn trở về thời hoàng kim của triều Nguyễn.",
+        "Âm nhạc là linh hồn của Huế, được UNESCO vinh danh, kể về sự tinh tế của một vương triều.",
+        "Rồi ca Huế cất lên, da diết và thơ mộng, như một bức thư tình gửi từ trái tim của người dân Huế.",
+        "Bạn nhắm mắt, để những giai điệu ấy dẫn bạn qua những cung đường đầy hoa phượng vĩ, nơi quá khứ và hiện tại hòa quyện."
+    ],
+    [
+        "Festival Huế 2025 khép lại, nhưng câu chuyện về cố đô vẫn còn vang vọng.",
+        "Bạn rời đi, mang theo những mảnh ghép của văn hóa Huế – từ những chiếc nón lá, những món ăn đậm đà, đến những giai điệu bất tử.",
+        "Và đâu đó, bạn biết rằng Huế vẫn đang chờ bạn quay lại, để tiếp tục kể những câu chuyện mới."
+    ],
+    [
+        "Cảm ơn các bạn đã dành thời gian để lắng nghe.",
+        "Câu chuyện sẽ được kể lại sau 10 giây tiếp theo."
+    ]
+];
+
+let currentSection = 0;
+let currentDialogue = 0;
+let currentTimeoutId = null;
+let isAutoMode = true;
+
+
+function showCharacter() {
+    document.getElementById("character").classList.add("show");
+    document.getElementById("speech").classList.add("show");
+}
+
+function hideCharacter() {
+    document.getElementById("character").classList.remove("show");
+    document.getElementById("speech").classList.remove("show");
+}
+
+
+function moveCharacterWithSpeech(text) {
+    const character = document.getElementById("character");
+    const speech = document.getElementById("speech");
+
+    const maxX = window.innerWidth * 0.9;
+    const newX = Math.random() * maxX;
+    const vwX = (newX / window.innerWidth) * 100;
+
+    // moveCharacterToCurrentSection();
+
+    // Tránh đặt left ngay lập tức — dùng requestAnimationFrame để đảm bảo repaint
+    requestAnimationFrame(() => {
+    character.style.left = (vwX + 3.4) + "vw";
+    speech.style.left = vwX + "vw";
+
+    speech.classList.remove("show");
+    setTimeout(() => {
+        speech.classList.add("show");
+        typeWriter(speech, text);
+    }, 300);
+    });
+
+    // Trả về thời gian cần để nói xong
+    const typingTime = text.length * 28 + 1000;
+    return typingTime;
+}
+
+
+function typeWriter(element, text, speed = 28) {
+    element.innerHTML = "";
+    const span = document.createElement("span");
+    element.appendChild(span);
+
+    const cloud = document.createElement("span");
+    cloud.className = "cloud-extra";
+    element.appendChild(cloud);
+
+    let i = 0;
+    function type() {
+    if (i < text.length) {
+        span.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+    }
+    }
+    type();
+}
+
+function runDialogueForSection(sectionIndex) {
+    const dialogues = sectionDialogues[sectionIndex];
+    if (!dialogues) return;
+
+    currentDialogue = 0;
+
+    function nextDialogue() {
+        if (currentDialogue >= dialogues.length) {
+            currentSection++;
+            if (currentSection < sectionDialogues.length) {
+                // fullpage_api.moveSectionDown();
+                currentTimeoutId = setTimeout(() => {
+                    runDialogueForSection(currentSection);
+                }, 1000);
+            } else {
+                hideCharacter();
+                window.dispatchEvent(new CustomEvent("HuyModeKC"));
+
+                // Sau 10 giây nhân vật xuất hiện lại và kể lại từ đầu
+                setTimeout(() => {
+                    resetStory();
+                    startCharacterLoop();
+                }, 10000);
+            }
+            return;
+        }
+
+        const text = dialogues[currentDialogue++];
+        const delay = moveCharacterWithSpeech(text) + 1000;
+
+        currentTimeoutId = setTimeout(nextDialogue, delay);
+    }
+
+    nextDialogue();
+}
+
+function startCharacterLoop() {
+    // isAutoMode = true;
+    showCharacter();
+    runDialogueForSection(currentSection);
+}
+
+
+function resetStory() {
+    currentSection = 0;
+    currentDialogue = 0;
+    // isAutoMode = true;
+    if (currentTimeoutId) {
+    clearTimeout(currentTimeoutId);
+    currentTimeoutId = null;
+    }
+}
+
+window.resetStory = resetStory;
+window.startCharacterLoop = startCharacterLoop;
+window.hideCharacter = hideCharacter;
+
+// Smooth Scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Function chính cho việc bật tắt chế độ kể chuyện
+document.addEventListener('DOMContentLoaded', function () {
+    const event = new CustomEvent("KichHoatModeKC", {});
+    window.dispatchEvent(event);
+});
+
+//Talkbot
+// Khi bật chế độ kể chuyện
+window.addEventListener("KichHoatModeKC", () => {
+    if (window.resetStory) {
+        window.resetStory();
+    }
+    if (window.startCharacterLoop) {
+        setTimeout(() => {
+        window.startCharacterLoop();
+        }, 200);
+    }
 });

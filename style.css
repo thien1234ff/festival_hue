@@ -1561,3 +1561,282 @@ footer::before {
         font-size: 1.1rem;
     }
 }
+
+/* CSS for talkbot */
+/* Style cho nút hiển thị */
+#btnModeToggle {
+    position: fixed;
+    left: 1.8vw;         /* cách trái */
+    bottom: 2.5vh;         /* cách dưới */
+    width: 3.5vw;        /* kích thước nút */
+    height: 3.5vw;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 0.5vh 1.5vh rgba(0,0,0,0.6);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9999;
+    transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* hover / pressed */
+#btnModeToggle:hover {
+    transform: translateY(-0.4vh);
+    box-shadow: 0 0.8vh 2.2vh rgba(0,0,0,0.6);
+}
+
+/* trạng thái bật (active) — nền vàng */
+#btnModeToggle.active {
+    background: #f6c600;
+    box-shadow: 0 1vh 3vh rgba(246,198,0,0.28);
+}
+
+/* SVG trong nút */
+#btnModeToggle svg {
+    width: 58%;
+    height: 58%;
+    transition: fill 180ms ease, stroke 180ms ease, transform 180ms ease;
+    transform-origin: center;
+}
+
+/* icon khi active nhấn nhẹ */
+#btnModeToggle.active svg {
+    transform: scale(1.03);
+}
+
+/* focus outline cho keyboard */
+#btnModeToggle:focus {
+    outline: 0.25vw solid rgba(0,0,0,0.08);
+    outline-offset: 0.15vw;
+}
+
+
+/* Talkbot */
+.character {
+    position: fixed;
+    bottom: 2vh;
+    left: 0;
+    width: 8vw;
+    height: auto;
+    transition: left 2s ease-in-out;
+    z-index: 30;
+}
+
+#character, #speech {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: left 0.8s ease-in-out, opacity 0.6s ease, transform 0.6s ease;
+    will-change: left, opacity, transform;
+}
+
+#character.show, #speech.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.speech-bubble {
+    position: fixed;
+    bottom: 18vh;
+    left: 0;
+    background: white;
+    color: #333;
+    padding: 1.2vh 1.5vw;
+    border-radius: 3vw;
+    max-width: 18vw;
+    box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
+    font-size: 1.2vw;
+    line-height: 1.4;
+    opacity: 0;
+    transform: translateY(2vh);
+    transition: left 2s ease-in-out, opacity 0.6s ease, transform 0.6s ease;
+    z-index: 31;
+}
+
+.speech-bubble.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.speech-bubble::after, .speech-bubble::before {
+    content: "";
+    position: fixed;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0.2vh 0.6vh rgba(0, 0, 0, 0.1);
+}
+
+.speech-bubble::before {
+    width: 1.5vw;
+    height: 1.5vw;
+    bottom: -1vh;
+    left: 1.5vw;
+}
+
+.speech-bubble::after {
+    width: 1vw;
+    height: 1vw;
+    bottom: -1.8vh;
+    left: 3vw;
+}
+
+.cloud-extra {
+    position: fixed;
+    width: 1.2vw;
+    height: 1.2vw;
+    bottom: -2.5vh;
+    left: 4.5vw;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0.2vh 0.6vh rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #btnModeToggle {
+        position: fixed;
+        left: 2.3vw;
+        bottom: 2.7vh;
+        width: 7.5vw;
+        height: 7.5vw;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255,255,255,0.95);
+        box-shadow: 0 1vh 2vh rgba(0,0,0,0.6);
+    }
+
+    #btnModeToggle:hover {
+        transform: translateY(-0.4vh);
+        box-shadow: 0 0.8vh 2.2vh rgba(0,0,0,0.6);
+    }
+
+    #btnModeToggle.active {
+        background: #f6c600;
+        box-shadow: 0 1vh 3vh rgba(246,198,0,0.28);
+    }
+
+    #btnModeToggle:focus {
+        outline: 0.3vw solid rgba(0,0,0,0.08);
+        outline-offset: 0.2vw;
+    }
+
+    .character {
+        bottom: 2vh;
+        left: 0;
+        width: 20vw;
+    }
+
+    .speech-bubble {
+        bottom: 18vh;
+        left: 0;
+        padding: 1.2vh 1.5vw;
+        border-radius: 3vw;
+        max-width: 21vw;
+        box-shadow: 0 1vh 1vw rgba(0, 0, 0, 0.1);
+        font-size: 2.2vw;
+        line-height: 1.4;
+        transform: translateY(1vh);
+    }
+
+    .speech-bubble::after, .speech-bubble::before {
+        box-shadow: 0 0.2vh 0.6vh rgba(0, 0, 0, 0.1);
+    }
+
+    .speech-bubble::before {
+        width: 2.1vw;
+        height: 2.1vw;
+        bottom: -1vh;
+        left: 1vw;
+    }
+
+    .speech-bubble::after {
+        width: 1.9vw;
+        height: 1.9vw;
+        bottom: -2vh;
+        left: 3.5vw;
+    }
+
+    .cloud-extra {
+        width: 1.7vw;
+        height: 1.7vw;
+        bottom: -2.7vh;
+        left: 6vw;
+        box-shadow: 0 0.2vh 0.6vh rgba(0, 0, 0, 0.1);
+    }
+}
+
+@media (max-width: 480px) {
+    #btnModeToggle {
+        position: fixed;
+        left: 4vw;
+        bottom: 3vh;
+        width: 11vw;
+        height: 11vw;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255,255,255,0.95);
+        box-shadow: 0 0.5vh 1.5vh rgba(0,0,0,0.6);
+    }
+
+    #btnModeToggle:hover {
+        transform: translateY(-0.4vh);
+        box-shadow: 0 0.8vh 2vh rgba(0,0,0,0.6);
+    }
+
+    #btnModeToggle.active {
+        background: #f6c600;
+        box-shadow: 0 1vh 3vh rgba(246,198,0,0.28);
+    }
+
+    #btnModeToggle:focus {
+        outline: 0.4vw solid rgba(0,0,0,0.08);
+        outline-offset: 0.3vw;
+    }
+
+    .character {
+        bottom: 2vh;
+        left: 0;
+        width: 32vw;
+    }
+
+    .speech-bubble {
+        bottom: 18vh;
+        left: 0;
+        padding: 1.2vh 1.5vw;
+        border-radius: 3vw;
+        max-width: 30vw;
+        box-shadow: 0 1vh 1vw rgba(0, 0, 0, 0.1);
+        font-size: 3.5vw;
+        line-height: 1.4;
+        transform: translateY(1vh);
+    }
+
+    .speech-bubble::after, .speech-bubble::before {
+        box-shadow: 0 0.2vh 0.6vh rgba(0, 0, 0, 0.1);
+    }
+
+    .speech-bubble::before {
+        width: 2.7vw;
+        height: 2.7vw;
+        bottom: -1.3vh;
+        left: 1.5vw;
+    }
+
+    .speech-bubble::after {
+        width: 2.4vw;
+        height: 2.4vw;
+        bottom: -2.2vh;
+        left: 4.3vw;
+    }
+
+    .cloud-extra {
+        width: 2.2vw;
+        height: 2.2vw;
+        bottom: -3vh;
+        left: 7.3vw;
+        box-shadow: 0 0.2vh 0.6vh rgba(0, 0, 0, 0.1);
+    }
+}  
