@@ -1302,13 +1302,13 @@ footer::before {
 }
 
 #first {
-    background-image: url(/picture/nhanhac.jpg);
+    background-image: url("./picture/nhanhac.jpg");
     background-size: cover;
     background-position: center;
 }
 
 #second {
-    background-image: url(/picture/cahue.jpg);
+    background-image: url("./picture/cahue.jpg");
     background-size: cover;
     background-position: center;
 }
