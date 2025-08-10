@@ -311,7 +311,7 @@
     const craftData = {
     'non-la': {
         title: 'Nón Lá Huế Phú Cam',
-        image: '/picture/non-la.jpg',
+        image: './picture/non-la.jpg',
         description: 'Nón lá Huế không chỉ là một sản phẩm thủ công mà còn là biểu tượng văn hóa đặc trưng của người dân xứ Huế. Được làm từ lá cọ non và khung tre, nón lá Huế có độ bền cao và thiết kế tinh xảo.',
         history: 'Hình thành từ thế kỷ 17 bởi cộng đồng giáo dân định cư tại vùng đất Phú Cam.',
         technique: 'Sử dụng lá cọ non, khung tre, kỹ thuật đan lát truyền thống',
@@ -319,7 +319,7 @@
     },
     'gom-phuoc-tich': {
         title: 'Làng Gốm Phước Tích',
-        image: '/picture/gom.jpg',
+        image: './picture/gom.jpg',
         description: 'Làng gốm Phước Tích nổi tiếng với những sản phẩm gốm có chất lượng cao, được nung ở nhiệt độ cao tạo nên độ bền và vẻ đẹp độc đáo. Sản phẩm gốm Phước Tích mang đậm hồn quê xứ Huế.',
         history: 'Hơn 500 năm lịch sử, Trải qua 500 năm lịch sử, Phước Tích đã trở thành một điểm nổi bật với nghề gốm, sau đó được vua Gia Long đặt tên và phát triển',
         technique: 'Kỹ thuật nung gốm truyền thống, sử dụng lò nung củi',
@@ -327,13 +327,36 @@
     },
     'theu-hue': {
         title: 'Thêu Huế',
-        image: '/picture/theu.jpg',
+        image: './picture/theu.jpg',
         description: 'Nghệ thuật thêu Huế là một trong những loại hình thủ công mỹ nghệ tinh xảo nhất của Việt Nam, với những họa tiết trang nhã, màu sắc hài hòa và kỹ thuật thêu độc đáo.',
         history: 'Hơn 300 năm lịch sử, phát triển trong cung đình nhà Nguyễn',
         technique: 'Thêu tay truyền thống, sử dụng chỉ lụa cao cấp',
         products: 'Áo dài, tranh thêu, túi xách, khăn trang trí'
     },
-    
+    'moc-my-nghe': {
+        title: 'Mộc Mỹ Nghệ Huế',
+        image: '/placeholder.svg?height=400&width=600',
+        description: 'Nghề mộc mỹ nghệ Huế tạo ra những sản phẩm từ gỗ với kỹ thuật chạm khắc tinh xảo, từ đồ nội thất cung đình đến các vật dụng trang trí.',
+        history: 'Hơn 600 năm lịch sử, phát triển cùng với kiến trúc cung đình',
+        technique: 'Chạm khắc thủ công, sử dụng gỗ quý hiếm',
+        products: 'Bàn ghế, tủ kệ, tranh gỗ, tượng điêu khắc'
+    },
+    'duc-dong': {
+        title: 'Đúc Đồng Huế',
+        image: '/placeholder.svg?height=400&width=600',
+        description: 'Nghề đúc đồng Huế tạo ra những sản phẩm đồng thau chất lượng cao, từ chuông chùa, đỉnh hương đến các vật dụng trang trí cung đình.',
+        history: 'Hơn 800 năm lịch sử, phát triển từ thời Lý - Trần',
+        technique: 'Kỹ thuật đúc đồng truyền thống, sử dụng khuôn đất sét',
+        products: 'Chuông chùa, đỉnh hương, tượng đồng, đồ trang trí'
+    },
+    'giay-do': {
+        title: 'Giấy Dó Huế',
+        image: '/placeholder.svg?height=400&width=600',
+        description: 'Nghề làm giấy dó Huế sử dụng vỏ cây dó để tạo ra loại giấy có chất lượng cao, được sử dụng trong cung đình để viết sách, thư từ và trang trí.',
+        history: 'Hơn 700 năm lịch sử, được sử dụng rộng rãi trong cung đình',
+        technique: 'Sử dụng vỏ cây dó, kỹ thuật làm giấy thủ công truyền thống',
+        products: 'Giấy viết, giấy in sách, giấy trang trí, giấy dán tường'
+    }
 };
 
 // DOM Elements
@@ -533,25 +556,35 @@ const sectionDialogues = [
     ["Hành Trình Qua Cố Đô: Festival Huế 2025."],
     [ 
         "Dưới ánh hoàng hôn dịu dàng, dòng sông Hương lấp lánh như dải lụa, thì thầm kể những câu chuyện ngàn năm của cố đô Huế.",
-        "Bạn bước đi trên con đường nhỏ dẫn vào Festival Huế 2025, nơi mỗi góc phố, mỗi âm thanh, mỗi hương vị đều là một chương trong cuốn sách văn hóa rực rỡ."
+        "Bạn bước đi trên con đường nhỏ dẫn vào Festival Huế 2025, nơi mỗi góc phố,",
+        " mỗi âm thanh, mỗi hương vị đều là một chương trong cuốn sách văn hóa rực rỡ."
     ],
     [
         "Chương đầu tiên mở ra tại làng nón Phú Cam, nơi những nghệ nhân khéo léo dệt từng chiếc lá cọ thành những chiếc nón lá tinh xảo.",
         "Dưới bàn tay họ, mỗi chiếc nón là một tác phẩm nghệ thuật, mang hồn Huế với những đường thêu mềm mại như thơ.",
-        "Bạn cầm trên tay chiếc nón, cảm nhận được hơi thở của hơn 400 năm truyền thống, như thể thời gian đang kể bạn nghe về sự kiên trì và tinh tế.",
-        "Bước tiếp theo, bạn lạc vào làng hoa giấy Thanh Tiên, nơi những bông hoa giấy rực rỡ sắc màu như nở ra từ tâm hồn của đất trời Huế.",
-        "Mỗi cánh hoa được cắt tỉa thủ công, kể câu chuyện về những lễ hội tưng bừng, những ngày cưới hỏi ngập tràn niềm vui.",
-        "Bạn mỉm cười, tưởng tượng mình đang đứng giữa một khu vườn hoa giấy lộng lẫy, nơi mọi khoảnh khắc đều trở nên bất tử."
+        "Bạn cầm trên tay chiếc nón, cảm nhận được hơi thở của hơn 400 năm truyền thống,",
+        "như thể thời gian đang kể bạn nghe về sự kiên trì và tinh tế.",
+        "Bước tiếp theo, bạn lạc vào làng gốm Phước Tích,",
+        "nơi những sản phẩm gốm thủ công tinh xảo mang đậm hồn quê và truyền thống lâu đời của xứ Huế.",
+        "Mỗi chiếc bình, chiếc chén đều được nghệ nhân dày công tạo hình và nung trong lửa rực,",
+        "kể lại câu chuyện về nét văn hóa cổ kính và bàn tay khéo léo của người dân làng nghề.",
+        "Cùng lúc đó, bạn dạo bước qua những xưởng thêu truyền thống,",
+        "nơi từng đường kim mũi chỉ trên vải lụa Huế thêu nên những bức tranh sống động, tinh tế, đậm đà bản sắc cung đình và dân gian.",
+        "Bạn mỉm cười, tưởng tượng mình đang chìm đắm trong không gian nghệ thuật truyền thống,",
+        "nơi mỗi sản phẩm đều chứa đựng linh hồn và tâm huyết của người nghệ sĩ."
     ],
     [
         "Hành trình dẫn bạn đến một góc phố nhỏ, nơi mùi hương cay nồng của bún bò Huế quyện trong không khí.",
-        "Bạn ngồi xuống, thưởng thức tô bún với nước dùng đậm đà, thơm lừng từ xương heo, tôm khô và mắm ruốc. Mỗi muỗng nước là một câu chuyện về cung đình, nơi ẩm thực không chỉ là món ăn mà còn là nghệ thuật.",
+        "Bạn ngồi xuống, thưởng thức tô bún với nước dùng đậm đà, thơm lừng từ xương heo, tôm khô và mắm ruốc.",
+        "Mỗi muỗng nước là một câu chuyện về cung đình, nơi ẩm thực không chỉ là món ăn mà còn là nghệ thuật.",
         "Rồi bạn nếm thử nem công chả phụng, món ăn tinh tế của hoàng gia, với hương vị thanh đạm như một lời thì thầm của sự sang trọng.",
         "Không thể bỏ qua bánh ép làng Chuồn, giòn tan, đậm đà, như một khúc ca dân dã của làng quê Huế.",
-        "Và để kết thúc, một miếng mè xửng ngọt ngào tan trên đầu lưỡi, mang theo hương vị cổ điển, như một lời chào tạm biệt từ những ngày xưa cũ."
+        "Và để kết thúc, một miếng mè xửng ngọt ngào tan trên đầu lưỡi, mang theo hương vị cổ điển,",
+        "như một lời chào tạm biệt từ những ngày xưa cũ."
     ],
     [
-        "Cuối cùng, bạn dừng chân bên dòng sông Hương, nơi giai điệu nhã nhạc cung đình Huế vang lên, trầm bổng và trang nghiêm, như đưa bạn trở về thời hoàng kim của triều Nguyễn.",
+        "Cuối cùng, bạn dừng chân bên dòng sông Hương, nơi giai điệu nhã nhạc cung đình Huế vang lên,",
+        "trầm bổng và trang nghiêm, như đưa bạn trở về thời hoàng kim của triều Nguyễn.",
         "Âm nhạc là linh hồn của Huế, được UNESCO vinh danh, kể về sự tinh tế của một vương triều.",
         "Rồi ca Huế cất lên, da diết và thơ mộng, như một bức thư tình gửi từ trái tim của người dân Huế.",
         "Bạn nhắm mắt, để những giai điệu ấy dẫn bạn qua những cung đường đầy hoa phượng vĩ, nơi quá khứ và hiện tại hòa quyện."
@@ -588,15 +621,19 @@ function moveCharacterWithSpeech(text) {
     const character = document.getElementById("character");
     const speech = document.getElementById("speech");
 
-    const maxX = window.innerWidth * 0.9;
-    const newX = Math.random() * maxX;
+    // Giới hạn vùng giữa: bỏ trống 20% mỗi bên
+    const marginPercent = 0.2; // 20% mỗi bên
+    const minX = window.innerWidth * marginPercent;
+    const maxX = window.innerWidth * (1 - marginPercent);
+
+    const newX = minX + Math.random() * (maxX - minX);
     const vwX = (newX / window.innerWidth) * 100;
 
     // moveCharacterToCurrentSection();
 
     // Tránh đặt left ngay lập tức — dùng requestAnimationFrame để đảm bảo repaint
     requestAnimationFrame(() => {
-    character.style.left = (vwX + 3.4) + "vw";
+    character.style.left = (vwX + 3) + "vw";
     speech.style.left = vwX + "vw";
 
     speech.classList.remove("show");
